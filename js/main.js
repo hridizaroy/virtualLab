@@ -47,17 +47,6 @@ document.body.addEventListener('keydown', move);
 document.body.addEventListener('keyup', jump);
 document.body.addEventListener('mouseup', notes_toggle);
 
-/*
-// controlling teacher movement
-var rotateTeacher;
-
-document.body.addEventListener('keyup', board_vid_toggle);
-teacher.addEventListener('mouseup', notes_toggle);
-student1.addEventListener('click', message_toggle);
-
-updateMessage(); // Updating Message text
-*/
-
 //Movement and looking around
 
 function move(e) {
@@ -153,17 +142,10 @@ function move(e) {
     }
     else if (x < minX) {
         x = minX;
-    }
-
-    // Make teacher rotate to follow you
-    //rotateTeacher = Math.atan((y + 0.15 * wall_width)/(wall_width / 2 - z - wall_width / 4)) * 180 / Math.PI;
-    
+    }    
     
     document.querySelector(".container").style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (1000 - z) + "px"; // changing anchor point to current position
     document.querySelector(".container").style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
-    
-    
-    // document.querySelector(".teacher").style.transform = "translateZ(" + wall_width / 4 + "px) rotateY(" + (-rotateTeacher) + "deg)";
 }
 
 function jump(e) {
