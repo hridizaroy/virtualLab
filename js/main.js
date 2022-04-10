@@ -13,6 +13,12 @@ document.querySelector(".back").style.transform = "translateZ(" + wall_width + "
 document.querySelector(".lab_stuff").style.height = wall_width + "px";
 
 
+// Object variables
+const notes_obj = document.querySelector(".notes");
+
+notes_obj.style.display = "none";
+
+
 //Movement
 
 // Constants for restraints
@@ -39,6 +45,7 @@ var rotateX = 0;
 
 document.body.addEventListener('keydown', move);
 document.body.addEventListener('keyup', jump);
+document.body.addEventListener('mouseup', notes_toggle);
 
 /*
 // controlling teacher movement
@@ -170,5 +177,24 @@ function jump(e) {
             y = 0;
             document.querySelector(".container").style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)" + "translateY(" + y + "%)";
         }, 600);
+    }
+}
+
+// Turn notes off and on
+function notes_toggle(e){
+    // show/hide on right click
+    if (e.button == 2) {
+        if (notes_obj.style.display == "none") {
+            notes_obj.style.display = "block";
+            document.body.removeEventListener('keydown', move);
+            document.body.removeEventListener('keyup', jump);
+            document.body.removeEventListener('keyup', board_vid_toggle);
+        }
+        else {
+            notes_obj.style.display = "none";
+            document.body.addEventListener('keydown', move);
+            document.body.addEventListener('keyup', jump);
+            document.body.addEventListener('keyup', board_vid_toggle);
+        }
     }
 }
