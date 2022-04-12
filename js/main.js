@@ -1,31 +1,37 @@
-const wall_width = document.querySelector(".wall").offsetWidth;
-
-// Setting initial distance from front wall
-document.querySelector(".container_outer").style.perspective = wall_width / 2 + "px";
-
-// Setting intial anchor point
-document.querySelector(".container").style.transformOrigin = "50% 50% " + wall_width / 2 + "px";
-
-// Setting distance from front wall to back wall = wall width
-document.querySelector(".back").style.transform = "translateZ(" + wall_width + "px)";
-
-// Setting lab_stuff container height to wall height
-document.querySelector(".lab_stuff").style.height = wall_width + "px";
-
 
 // Object variables
-const notes_obj = document.querySelector(".notes");
+const Wall = document.querySelector(".wall");
+const Wall_width = Wall.offsetWidth;
+const Container = document.querySelector(".container");
+const OuterContainer = document.querySelector(".container_outer");
+const BackWall = document.querySelector(".back");
+const Notes_obj = document.querySelector(".notes");
+const Teacher = document.querySelector(".teacher");
+const LabStuff = document.querySelector(".lab_stuff");
 
-notes_obj.style.display = "none";
+// Setting initial distance from front wall
+OuterContainer.style.perspective = Wall_width / 2 + "px";
+
+// Setting intial anchor point
+Container.style.transformOrigin = "50% 50% " + Wall_width / 2 + "px";
+
+// Setting distance from front wall to back wall = wall width
+BackWall.style.transform = "translateZ(" + Wall_width + "px)";
+
+// Setting lab_stuff container height to wall height
+LabStuff.style.height = Wall_width + "px";
+
+Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px)"; // moving teacher a few steps in front
+Notes_obj.style.display = "none";
 
 
 //Movement
 
 // Constants for restraints
-const minZ = -0.45 * wall_width;
-const maxZ = 0.2 * wall_width;
-const maxX = 0.2 * document.querySelector(".wall").offsetWidth;
-const minX = -1 * 0.5 * document.querySelector(".wall").offsetWidth;
+const minZ = -0.45 * Wall_width;
+const maxZ = 0.2 * Wall_width;
+const maxX = 0.2 * Wall_width;
+const minX = -1 * 0.5 * Wall_width;
 
 // Position variables
 var z = 0;
@@ -42,6 +48,9 @@ const rotate_step = 1;
 //Look Around
 var rotateY = 0;
 var rotateX = 0;
+
+// controlling teacher movement
+var rotateTeacher;
 
 document.body.addEventListener('keydown', move);
 document.body.addEventListener('keyup', jump);
@@ -142,10 +151,16 @@ function move(e) {
     }
     else if (x < minX) {
         x = minX;
-    }    
+    }
+
+    // Make teacher rotate to follow you
+    // Use triangles and vectors to calculate rotation
+    rotateTeacher = Math.atan((y + 0.15 * Wall_width)/(Wall_width / 2 - z - Wall_width / 4)) * 180 / Math.PI;
     
-    document.querySelector(".container").style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (1000 - z) + "px"; // changing anchor point to current position
-    document.querySelector(".container").style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
+    Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (1000 - z) + "px"; // changing anchor point to current position
+    Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
+
+    Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (-rotateTeacher) + "deg)";
 }
 
 function jump(e) {
@@ -166,14 +181,14 @@ function jump(e) {
 function notes_toggle(e){
     // show/hide on right click
     if (e.button == 2) {
-        if (notes_obj.style.display == "none") {
-            notes_obj.style.display = "block";
+        if (Notes_obj.style.display == "none") {
+            Notes_obj.style.display = "block";
             document.body.removeEventListener('keydown', move);
             document.body.removeEventListener('keyup', jump);
             document.body.removeEventListener('keyup', board_vid_toggle);
         }
         else {
-            notes_obj.style.display = "none";
+            Notes_obj.style.display = "none";
             document.body.addEventListener('keydown', move);
             document.body.addEventListener('keyup', jump);
             document.body.addEventListener('keyup', board_vid_toggle);
