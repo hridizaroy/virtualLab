@@ -18,3 +18,5 @@
 
 ##### Test-tubes and beakers are clickable
 
+##### Teacher: the teacher rotates to 'keep her eyes on you' as you move anywhere in the room
+
