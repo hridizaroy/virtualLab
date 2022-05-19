@@ -20,3 +20,4 @@
 
 ##### Teacher: the teacher rotates to 'keep her eyes on you' as you move anywhere in the room
 
+#### Artwork by: https://github.com/AkhileshPachnanda
