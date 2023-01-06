@@ -185,13 +185,11 @@ function notes_toggle(e){
             Notes_obj.style.display = "block";
             document.body.removeEventListener('keydown', move);
             document.body.removeEventListener('keyup', jump);
-            document.body.removeEventListener('keyup', board_vid_toggle);
         }
         else {
             Notes_obj.style.display = "none";
             document.body.addEventListener('keydown', move);
             document.body.addEventListener('keyup', jump);
-            document.body.addEventListener('keyup', board_vid_toggle);
         }
     }
 }
