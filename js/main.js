@@ -21,17 +21,19 @@ BackWall.style.transform = "translateZ(" + Wall_width + "px)";
 // Setting lab_stuff container height to wall height
 LabStuff.style.height = Wall_width + "px";
 
-Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px)"; // moving teacher a few steps in front
 Notes_obj.style.display = "none";
 
 
 //Movement
 
 // Constants for restraints
-const minZ = -0.49 * Wall_width;
+const minZ = -0.45 * Wall_width;
 const maxZ = 0.2 * Wall_width;
-const maxX = 0.49 * Wall_width;
-const minX = -1 * 0.49 * Wall_width;
+
+// 0.3 and 0.6 because the walls are placed at bottom = 0, left = 0 initially
+// So 1/3rd of the wall is to the left, and 2/3rds are to the right of the initial transform origin
+const maxX = 0.3 * Wall_width;
+const minX = -0.6 * Wall_width;
 
 // Position variables
 var z = 0;
@@ -50,7 +52,7 @@ var rotateY = 0;
 var rotateX = 0;
 
 // controlling teacher orientation
-var rotateTeacher = Math.atan((0.15 * Wall_width + x)/(Wall_width / 4 - z)) * 180 / Math.PI;
+var rotateTeacher = Math.atan(((0.65 * Wall_width - innerWidth/2) + x)/(Wall_width / 4 - z)) * 180 / Math.PI;
 Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (-rotateTeacher) + "deg)";
 
 document.body.addEventListener('keydown', move);
@@ -78,7 +80,7 @@ function move(e) {
         newX = x - move_step * Math.sin(rotate_val * Math.PI / 180);
         newZ = z + move_step * Math.cos(rotate_val * Math.PI / 180);
 
-        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
+        if (maxX >= newX && newX >= minX && minZ <= newZ && newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
@@ -88,7 +90,7 @@ function move(e) {
         newX = x + move_step * Math.sin(rotate_val * Math.PI / 180);
         newZ = z - move_step * Math.cos(rotate_val * Math.PI / 180);
 
-        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
+        if (maxX >= newX && newX >= minX && minZ <= newZ && newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
@@ -98,7 +100,7 @@ function move(e) {
         newX = x + move_step * Math.cos(rotate_val * Math.PI / 180);
         newZ = z + move_step * Math.sin(rotate_val * Math.PI / 180);
 
-        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
+        if (maxX >= newX && newX >= minX && minZ <= newZ && newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
@@ -108,7 +110,7 @@ function move(e) {
         newX = x - move_step * Math.cos(rotate_val * Math.PI / 180);
         newZ = z - move_step * Math.sin(rotate_val * Math.PI / 180);
 
-        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
+        if (maxX >= newX && newX >= minX && minZ <= newZ && newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
@@ -131,7 +133,7 @@ function move(e) {
         rotateY += rotate_step;
     }
     
-    // Restraints - for safety
+    // Restraints
 
     if (rotateX > 90) {
         rotateX = 90;
@@ -140,24 +142,9 @@ function move(e) {
         rotateX = -90;
     }
 
-    if (z > maxZ) {
-        z = maxZ;
-    }
-    else if (z < minZ) {
-        z = minZ;
-    }
-
-    if (x > maxX) {
-        x = maxX;
-    }
-    else if (x < minX) {
-        x = minX;
-    }
-
     // Make teacher rotate to follow you
     // Use vectors to calculate rotation
-    rotateTeacher = Math.atan((0.15 * Wall_width + x)/(Wall_width / 4 - z)) * 180 / Math.PI;
-    
+    rotateTeacher = Math.atan(((0.65 * Wall_width - innerWidth/2) + x)/(Wall_width / 4 - z)) * 180 / Math.PI;
     Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (Wall_width/2 - z) + "px"; // changing anchor point to current position
     Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
 
