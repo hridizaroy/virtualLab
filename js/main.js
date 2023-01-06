@@ -157,7 +157,6 @@ function move(e) {
     // Make teacher rotate to follow you
     // Use vectors to calculate rotation
     rotateTeacher = Math.atan((0.15 * Wall_width + x)/(Wall_width / 4 - z)) * 180 / Math.PI;
-    console.log(x, z)
     
     Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (Wall_width/2 - z) + "px"; // changing anchor point to current position
     Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
