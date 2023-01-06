@@ -28,10 +28,10 @@ Notes_obj.style.display = "none";
 //Movement
 
 // Constants for restraints
-const minZ = -0.45 * Wall_width;
+const minZ = -0.49 * Wall_width;
 const maxZ = 0.2 * Wall_width;
-const maxX = 0.2 * Wall_width;
-const minX = -1 * 0.5 * Wall_width;
+const maxX = 0.49 * Wall_width;
+const minX = -1 * 0.49 * Wall_width;
 
 // Position variables
 var z = 0;
@@ -59,55 +59,55 @@ document.body.addEventListener('mouseup', notes_toggle);
 //Movement and looking around
 
 function move(e) {
-    document.querySelector(".container").style.transition = "0s"; // resetting the transition, in case it is changed by the jump()
+    Container.style.transition = "0s"; // resetting the transition, in case it is changed by the jump()
 
     var rotate_val;
 
-    if (document.querySelector(".container").style.transform == "") { // initial case
+    if (Container.style.transform == "") { // initial case
         rotate_val = 0; // no rotation
     }
     else {
         // otherwise, set rotation
-        rotate_val = 90 + parseInt(document.querySelector(".container").style.transform.split("rotateY(")[1].split("deg")[0]);
+        rotate_val = parseInt(Container.style.transform.split("rotateY(")[1].split("deg")[0]);
     }
 
     //w
     if (e.keyCode == 119 || e.keyCode == 87 ) {
         // use vector math to set movement according to direction
-        newX = x + move_step * Math.cos(rotate_val * Math.PI / 180);
-        newZ = z + move_step * Math.sin(rotate_val * Math.PI / 180);
+        newX = x - move_step * Math.sin(rotate_val * Math.PI / 180);
+        newZ = z + move_step * Math.cos(rotate_val * Math.PI / 180);
 
-        if (newX <= maxX && newZ <= maxZ) {
+        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
     }
     //s
     else if (e.keyCode == 115 || e.keyCode == 83) {
-        newX = x - move_step * Math.cos(rotate_val * Math.PI / 180);
-        newZ = z - move_step * Math.sin(rotate_val * Math.PI / 180);
+        newX = x + move_step * Math.sin(rotate_val * Math.PI / 180);
+        newZ = z - move_step * Math.cos(rotate_val * Math.PI / 180);
 
-        if (newX >= minX && newZ >= minZ) {
+        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
     }
     //a
     else if (e.keyCode == 97 || e.keyCode == 65) {
-        newX = x + move_step * Math.sin(rotate_val * Math.PI / 180);
-        newZ = z - move_step * Math.cos(rotate_val * Math.PI / 180);
+        newX = x + move_step * Math.cos(rotate_val * Math.PI / 180);
+        newZ = z + move_step * Math.sin(rotate_val * Math.PI / 180);
 
-        if (newX <= maxX && newZ >= minZ) {
+        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
     }
     //d
     else if (e.keyCode == 100 || e.keyCode == 68) {
-        newX = x - move_step * Math.sin(rotate_val * Math.PI / 180);
-        newZ = z + move_step * Math.cos(rotate_val * Math.PI / 180);
+        newX = x - move_step * Math.cos(rotate_val * Math.PI / 180);
+        newZ = z - move_step * Math.sin(rotate_val * Math.PI / 180);
 
-        if (newX >= minX && newZ <= maxZ) {
+        if (maxX >= newX >= minX && minZ <= newZ <= maxZ) {
             x = newX;
             z = newZ;
         }
@@ -157,7 +157,7 @@ function move(e) {
     // Use triangles and vectors to calculate rotation
     rotateTeacher = Math.atan((y + 0.15 * Wall_width)/(Wall_width / 2 - z - Wall_width / 4)) * 180 / Math.PI;
     
-    Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (1000 - z) + "px"; // changing anchor point to current position
+    Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (Wall_width/2 - z) + "px"; // changing anchor point to current position
     Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
 
     Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (-rotateTeacher) + "deg)";
@@ -168,11 +168,11 @@ function jump(e) {
     if (e.keyCode == 32) {
         //Jump
         y = 10;
-        document.querySelector(".container").style.transition = "0.6s";
-        document.querySelector(".container").style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)" + "translateY(" + y + "%)";
+        Container.style.transition = "0.6s";
+        Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)" + "translateY(" + y + "%)";
         setTimeout(() => {
             y = 0;
-            document.querySelector(".container").style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)" + "translateY(" + y + "%)";
+            Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)" + "translateY(" + y + "%)";
         }, 600);
     }
 }
