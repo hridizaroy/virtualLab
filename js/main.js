@@ -124,13 +124,13 @@ function move(e) {
     else if (e.keyCode == 40) {
         rotateX -= rotate_step;
     }
-    // left arrow
-    else if (e.keyCode == 37) {
-        rotateY -= rotate_step;
-    }
     // right arrow
     else if (e.keyCode == 39) {
         rotateY += rotate_step;
+    }
+    // left arrow
+    else if (e.keyCode == 37) {
+        rotateY -= rotate_step;
     }
     
     // Restraints
