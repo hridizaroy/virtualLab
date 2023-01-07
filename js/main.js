@@ -13,7 +13,7 @@ const LabStuff = document.querySelector(".lab_stuff");
 OuterContainer.style.perspective = Wall_width / 2 + "px";
 
 // Setting intial anchor point
-Container.style.transformOrigin = "50% 50% " + Wall_width / 2 + "px";
+Container.style.transformOrigin = "50% 0 " + Wall_width / 2 + "px";
 
 // Setting distance from front wall to back wall = wall width
 BackWall.style.transform = "translateZ(" + Wall_width + "px)";
