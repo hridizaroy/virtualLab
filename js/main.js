@@ -52,7 +52,9 @@ var rotateY = 0;
 var rotateX = 0;
 
 // controlling teacher orientation
-var rotateTeacher = Math.atan(((0.65 * Wall_width - innerWidth/2) + x)/(Wall_width / 4 - z)) * 180 / Math.PI;
+let x_distance = x + 0.65 * Wall_width - innerWidth/2;
+let z_distance = Wall_width / 4 - z;
+var rotateTeacher = Math.atan(x_distance/z_distance) * 180 / Math.PI;
 Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (-rotateTeacher) + "deg)";
 
 document.body.addEventListener('keydown', move);
@@ -144,7 +146,9 @@ function move(e) {
 
     // Make teacher rotate to follow you
     // Use vectors to calculate rotation
-    rotateTeacher = Math.atan(((0.65 * Wall_width - innerWidth/2) + x)/(Wall_width / 4 - z)) * 180 / Math.PI;
+    let x_distance = x + 0.65 * Wall_width - innerWidth/2;
+    let z_distance = Wall_width / 4 - z;
+    rotateTeacher = Math.atan(x_distance/z_distance) * 180 / Math.PI;
     Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (Wall_width/2 - z) + "px"; // changing anchor point to current position
     Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
 
