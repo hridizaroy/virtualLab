@@ -54,8 +54,8 @@ var rotateX = 0;
 // controlling teacher orientation
 let x_distance = x + 0.65 * Wall_width - innerWidth/2;
 let z_distance = Wall_width / 4 - z;
-var rotateTeacher = Math.atan(x_distance/z_distance) * 180 / Math.PI;
-Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (-rotateTeacher) + "deg)";
+var rotateTeacher = -1* Math.atan(x_distance/z_distance) * 180 / Math.PI;
+Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (rotateTeacher) + "deg)";
 
 document.body.addEventListener('keydown', move);
 document.body.addEventListener('keyup', jump);
@@ -148,11 +148,11 @@ function move(e) {
     // Use vectors to calculate rotation
     let x_distance = x + 0.65 * Wall_width - innerWidth/2;
     let z_distance = Wall_width / 4 - z;
-    rotateTeacher = Math.atan(x_distance/z_distance) * 180 / Math.PI;
+    rotateTeacher = -1 * Math.atan(x_distance/z_distance) * 180 / Math.PI;
     Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (Wall_width/2 - z) + "px"; // changing anchor point to current position
     Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
 
-    Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (-rotateTeacher) + "deg)";
+    Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (rotateTeacher) + "deg)";
 }
 
 function jump(e) {
