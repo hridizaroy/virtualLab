@@ -13,7 +13,7 @@ const LabStuff = document.querySelector(".lab_stuff");
 OuterContainer.style.perspective = Wall_width / 2 + "px";
 
 // Setting intial anchor point
-Container.style.transformOrigin = "50% 100% " + Wall_width / 2 + "px";
+Container.style.transformOrigin = "50% 50% " + Wall_width / 2 + "px";
 
 // Setting distance from front wall to back wall = wall width
 BackWall.style.transform = "translateZ(" + Wall_width + "px)";
@@ -149,7 +149,7 @@ function move(e) {
     let x_distance = x + 0.65 * Wall_width - innerWidth/2;
     let z_distance = Wall_width / 4 - z;
     rotateTeacher = -1 * Math.atan(x_distance/z_distance) * 180 / Math.PI;
-    Container.style.transformOrigin = innerWidth / 2 - x + "px " + "100% " + (Wall_width/2 - z) + "px"; // changing anchor point to current position
+    Container.style.transformOrigin = innerWidth / 2 - x + "px " + "50% " + (Wall_width/2 - z) + "px"; // changing anchor point to current position
     Container.style.transform = "translateZ(" + z + "px) translateX(" + x + "px)" + "rotateX(" + rotateX + "deg) " + "rotateY(" + rotateY + "deg)";
 
     Teacher.style.transform = "translateZ(" + Wall_width / 4 + "px) rotateY(" + (rotateTeacher) + "deg)";
