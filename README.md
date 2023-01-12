@@ -4,7 +4,7 @@
 
 #### Created using pure HTML, CSS and JS (no libraries)
 
-#### Try it out: https://hridizaroy.github.io/virtualLab/
+#### Try it out: http://www.hridiza.com/projects/virtualLab/
 
 #### Features
 
