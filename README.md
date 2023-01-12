@@ -2,6 +2,8 @@
 
 # A 3D Classroom simulator
 
+#### Walkthrough: https://youtu.be/FuJMjtBjFB8
+
 #### Created from scratch using pure HTML, CSS and JS (no libraries/frameworks/engines)
 
 #### Movement, rotation and world implemented using 3D Vector Math
